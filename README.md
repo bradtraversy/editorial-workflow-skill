@@ -107,41 +107,80 @@ Claude Code plugin mode exposes the six reviewer roles as custom subagents. Each
 
 | Runtime | Installation | Coordinator | Reviewers |
 |---|---|---|---|
-| Codex | SkillPass target install | `$editorial-workflow` | Reviewer skills with native isolated-agent delegation when available |
-| Claude Code | Full plugin install | `/editorial-workflow:editorial-workflow` | Six namespaced custom subagents plus reviewer skills |
+| Codex | Copy the seven skill folders | `$editorial-workflow` | Reviewer skills with native isolated-agent delegation when available |
+| Claude Code | Clone as a plugin or copy the skill folders | `/editorial-workflow:editorial-workflow` in plugin mode | Six namespaced custom subagents plus reviewer skills |
 | Other Agent Skills clients | Copy the `skills/` members | Client-specific invocation | Reviewer skills, with isolation determined by the client |
 
 The portable core is each `SKILL.md` with its references and assets. Vendor-specific metadata is additive and can be ignored safely by clients that do not use it.
 
-## Install with SkillPass
+## Install from GitHub
 
-These commands apply after the pack is listed on SkillPass.
+Keep every folder under `skills/` intact because each one is a separate Agent Skill.
+
+### Installation locations
+
+| Runtime and scope | Put the skill folders here |
+|---|---|
+| Codex, personal | `$CODEX_HOME/skills/` or `~/.codex/skills/` when `CODEX_HOME` is unset |
+| Codex, one project | `<project>/.agents/skills/` |
+| Claude Code, personal skills only | `~/.claude/skills/` |
+| Claude Code, one project, skills only | `<project>/.claude/skills/` |
+| Claude Code, full plugin | `~/.claude/skills/editorial-workflow/` |
+| Other Agent Skills clients | The client-specific Agent Skills directory |
+
+The destination directory should contain the seven member folders, such as `editorial-workflow/`, `editorial-fact-reviewer/`, and `editorial-voice-reviewer/`. Do not copy only the coordinator.
 
 ### Codex
 
+Clone the repository anywhere, then copy all seven skills into your personal Codex skills directory:
+
 ```bash
-skillpass add editorial-workflow --target codex
+git clone https://github.com/bradtraversy/editorial-workflow-skill.git
+cd editorial-workflow-skill
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+cp -R skills/. "${CODEX_HOME:-$HOME/.codex}/skills/"
 ```
+
+For a project-only installation, copy them into that project's `.agents/skills/` directory instead:
+
+```bash
+mkdir -p /path/to/project/.agents/skills
+cp -R skills/. /path/to/project/.agents/skills/
+```
+
+Restart Codex after installation so it discovers the skills.
 
 ### Claude Code with reviewer agents
 
-Install the raw pack into Claude's personal skills directory so Claude Code discovers the plugin manifest, skills, and custom subagents together:
+Clone the full repository into Claude's personal skills directory. This preserves the plugin manifest, coordinator, reviewer skills, and six read-only reviewer agents:
 
 ```bash
-skillpass add editorial-workflow --dir ~/.claude/skills/editorial-workflow
+mkdir -p ~/.claude/skills
+git clone https://github.com/bradtraversy/editorial-workflow-skill.git ~/.claude/skills/editorial-workflow
 ```
 
 Restart Claude Code or run `/reload-plugins` after installation.
 
-To install only the portable skills without the custom-agent layer:
+To test a clone from any other location without installing it there, run:
 
 ```bash
-skillpass add editorial-workflow --target claude-code
+claude --plugin-dir /path/to/editorial-workflow-skill
 ```
+
+### Claude Code skills only
+
+If you do not need the custom reviewer agents, copy the seven portable skills into Claude's personal or project skills directory:
+
+```bash
+mkdir -p ~/.claude/skills
+cp -R skills/. ~/.claude/skills/
+```
+
+Use `/path/to/project/.claude/skills/` instead for a project-only installation.
 
 ### Other Agent Skills clients
 
-Copy each folder under `skills/` into the skills directory used by the client.
+Clone the repository and copy every folder under `skills/` into the Agent Skills directory used by your client. The seven `SKILL.md` files and their bundled references and assets are the portable layer. The root `agents/` directory and `.claude-plugin/` manifest are Claude-specific and can be ignored by other clients.
 
 ## Develop locally with Claude Code
 
@@ -172,7 +211,6 @@ Missing human material remains visible as `[AUTHOR INPUT NEEDED]`. Unsupported f
 Validate the portable Agent Skills and the Claude plugin before release:
 
 ```bash
-skillpass scan .
 claude plugin validate --strict .
 ```
 
