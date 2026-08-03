@@ -1,0 +1,6 @@
+interface:
+  display_name: "Editorial Workflow"
+  short_description: "Develop credible writing from brief to package"
+  default_prompt: "Use $editorial-workflow to develop my article idea into a researched, voice-grounded publication package."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Editorial SEO Reviewer"
+  short_description: "Check search intent, metadata, links, and originality"
+  default_prompt: "Use $editorial-seo-reviewer to review this draft for search intent, metadata, useful coverage, and honest optimization."
+policy:
+  allow_implicit_invocation: true

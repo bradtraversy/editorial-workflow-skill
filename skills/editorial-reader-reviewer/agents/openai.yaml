@@ -1,0 +1,6 @@
+interface:
+  display_name: "Editorial Reader Reviewer"
+  short_description: "Check usefulness, clarity, structure, and reader flow"
+  default_prompt: "Use $editorial-reader-reviewer to review this draft from the intended reader's perspective."
+policy:
+  allow_implicit_invocation: true

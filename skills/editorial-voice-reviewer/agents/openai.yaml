@@ -1,0 +1,6 @@
+interface:
+  display_name: "Editorial Voice Reviewer"
+  short_description: "Protect sourced author voice and humanity"
+  default_prompt: "Use $editorial-voice-reviewer to compare this draft with its voice packet and flag generic or unsupported language."
+policy:
+  allow_implicit_invocation: true

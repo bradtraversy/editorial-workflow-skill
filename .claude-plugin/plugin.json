@@ -1,0 +1,20 @@
+{
+  "name": "editorial-workflow",
+  "displayName": "Editorial Workflow",
+  "version": "1.0.0",
+  "description": "Develop evidence-backed articles with staged research, author voice, independent review, revision, and publication-ready packaging.",
+  "author": {
+    "name": "Brad Traversy",
+    "url": "https://github.com/bradtraversy"
+  },
+  "homepage": "https://github.com/bradtraversy/editorial-workflow",
+  "repository": "https://github.com/bradtraversy/editorial-workflow",
+  "license": "MIT",
+  "keywords": [
+    "editorial",
+    "writing",
+    "research",
+    "review",
+    "content-workflow"
+  ]
+}

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Editorial Argument Reviewer"
+  short_description: "Check thesis support, reasoning, limits, and conclusions"
+  default_prompt: "Use $editorial-argument-reviewer to review this draft's thesis, counterarguments, evidence limits, and conclusion."
+policy:
+  allow_implicit_invocation: true

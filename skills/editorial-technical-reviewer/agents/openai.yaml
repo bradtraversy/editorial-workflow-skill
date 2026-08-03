@@ -1,0 +1,6 @@
+interface:
+  display_name: "Editorial Technical Reviewer"
+  short_description: "Verify code, commands, safety, and technical accuracy"
+  default_prompt: "Use $editorial-technical-reviewer to test and review the technical claims and instructions in this draft."
+policy:
+  allow_implicit_invocation: true

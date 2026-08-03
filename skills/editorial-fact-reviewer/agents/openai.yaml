@@ -1,0 +1,6 @@
+interface:
+  display_name: "Editorial Fact Reviewer"
+  short_description: "Verify article claims, quotes, sources, and freshness"
+  default_prompt: "Use $editorial-fact-reviewer to independently fact-check this draft and report evidence-backed findings."
+policy:
+  allow_implicit_invocation: true
